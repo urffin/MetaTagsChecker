@@ -16,5 +16,10 @@ namespace MetaTagsChecker
         {
             InitializeComponent();
         }
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
