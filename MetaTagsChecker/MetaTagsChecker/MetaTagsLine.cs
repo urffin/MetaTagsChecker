@@ -12,9 +12,13 @@ namespace MetaTagsChecker
         public string ExpectedTitle { get; set; }
         public string ExpectedDescription { get; set; }
         public string ExpectedKeywords { get; set; }
+        public string ExpectedH1 { get; set; }
 
         public string CurrentTitle { get; set; }
         public string CurrentDescription { get; set; }
         public string CurrentKeywords { get; set; }
+        public string CurrentH1 { get; set; }
+
+        public string Error { get; set; }
     }
 }

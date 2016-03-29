@@ -29,6 +29,7 @@ namespace MetaTagsChecker
                 factory.AddMapping<MetaTagsLine>(m => m.ExpectedDescription, "DESCRIPTION");
                 factory.AddMapping<MetaTagsLine>(m => m.ExpectedKeywords, "KEYWORDS");
                 factory.AddMapping<MetaTagsLine>(m => m.ExpectedTitle, "TITLE");
+                factory.AddMapping<MetaTagsLine>(m => m.ExpectedH1, "H1");
                 var worksheet = factory.GetWorksheetNames().First();
                 var columns = factory.GetColumnNames(worksheet);
                 dataGridView1.DataSource = bindingSource1;
@@ -37,19 +38,28 @@ namespace MetaTagsChecker
             }
         }
 
-        private void checkToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void checkToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            metatags[0].CurrentDescription = "Checked";
+            await Task.WhenAll(metatags.Select(m =>new MetaTagsChecker(m).Check()));
+
             dataGridView1.Refresh();
         }
 
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            const int countExpectedFields = 3;
+
+            const int countExpectedFields = 4;
+            const int errorCellIndex = 9;
+
             if (e.ColumnIndex > countExpectedFields)
             {
-                var currentValue = Convert.ToString(e.Value);
-                var expectedValue = Convert.ToString(((DataGridView)sender).Rows[e.RowIndex].Cells[e.ColumnIndex - countExpectedFields].Value);
+                var currentValue = Convert.ToString(e.Value).Trim();
+                if (e.ColumnIndex == errorCellIndex && !string.IsNullOrWhiteSpace(currentValue))
+                {
+                    e.CellStyle.BackColor = Color.Red;
+                    return;
+                }
+                var expectedValue = Convert.ToString(((DataGridView)sender).Rows[e.RowIndex].Cells[e.ColumnIndex - countExpectedFields].Value).Trim();
                 if (!string.IsNullOrWhiteSpace(currentValue))
                     e.CellStyle.BackColor = (currentValue == expectedValue) ? Color.LightGreen : Color.Red;
             }
