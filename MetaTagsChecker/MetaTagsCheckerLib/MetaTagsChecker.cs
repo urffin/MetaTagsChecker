@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CsQuery;
 
-namespace MetaTagsChecker
+namespace MetaTagsCheckerLib
 {
     public class MetaTagsChecker
     {

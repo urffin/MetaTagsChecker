@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LinqToExcel;
+using MetaTagsCheckerLib;
 
 namespace MetaTagsChecker
 {
@@ -40,7 +41,7 @@ namespace MetaTagsChecker
 
         private async void checkToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            await Task.WhenAll(metatags.Select(m =>new MetaTagsChecker(m).Check()));
+            await Task.WhenAll(metatags.Select(m => new MetaTagsCheckerLib.MetaTagsChecker(m).Check()));
 
             dataGridView1.Refresh();
         }
