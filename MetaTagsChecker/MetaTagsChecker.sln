@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaTagsChecker", "MetaTags
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaTagsCheckerLib", "MetaTagsCheckerLib\MetaTagsCheckerLib.csproj", "{889EA981-D303-429E-B096-9E602872F55E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaTagsCheckerWpf", "MetaTagsCheckerWpf\MetaTagsCheckerWpf.csproj", "{6D2D05FF-E17D-433B-8C63-C6DC9CB55DE4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{889EA981-D303-429E-B096-9E602872F55E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{889EA981-D303-429E-B096-9E602872F55E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{889EA981-D303-429E-B096-9E602872F55E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D2D05FF-E17D-433B-8C63-C6DC9CB55DE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D2D05FF-E17D-433B-8C63-C6DC9CB55DE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D2D05FF-E17D-433B-8C63-C6DC9CB55DE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D2D05FF-E17D-433B-8C63-C6DC9CB55DE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
