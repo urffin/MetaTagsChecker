@@ -42,7 +42,7 @@ namespace MetaTagsChecker
         private async void checkToolStripMenuItem_Click(object sender, EventArgs e)
         {
             await Task.WhenAll(metatags.Select(m => new MetaTagsCheckerLib.MetaTagsChecker(m).Check()));
-
+            MessageBox.Show("Complete!!!");
             dataGridView1.Refresh();
         }
 
@@ -54,7 +54,7 @@ namespace MetaTagsChecker
 
             if (e.ColumnIndex > countExpectedFields)
             {
-                var currentValue = Convert.ToString(e.Value).Trim();
+                var currentValue = Convert.ToString(e.Value).Trim().Replace('\'','"');
                 if (e.ColumnIndex == errorCellIndex && !string.IsNullOrWhiteSpace(currentValue))
                 {
                     e.CellStyle.BackColor = Color.Red;
