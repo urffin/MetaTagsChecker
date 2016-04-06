@@ -12,21 +12,44 @@ namespace MetaTagsCheckerLib
         public bool HasHeader { get; private set; }
         public char Separator { get; private set; }
 
-        public CSV(char separator = ';', bool hasHeader = true)
+        private List<string> header { get; set; }
+
+        public CSV(char separator = ';', bool hasHeader = false)
         {
             HasHeader = hasHeader;
             Separator = separator;
         }
-        public IEnumerable<string[]> Load(Stream stream)
+        public async Task<IEnumerable<string[]>> Load(Stream stream)
         {
             using (var reader = new StreamReader(stream))
             {
-                return Load(reader);
+                return await Load(reader);
             }
         }
-        public IEnumerable<string[]> Load(TextReader reader)
+        public async Task<IEnumerable<string[]>> Load(TextReader reader)
         {
-            reader.
+            string line;
+            if (HasHeader)
+            {
+                header = await GetHeader(reader);
+            }
+            while ((line = await reader.ReadLineAsync()) != null)
+            {
+
+            }
+        }
+
+        private async Task<List<string>> GetHeader(TextReader reader)
+        {
+            var line = await reader.ReadLineAsync();
+            return GetColumns(line).ToList();
+
+
+        }
+
+        private IEnumerable<string> GetColumns(string line)
+        {
+            throw new NotImplementedException();
         }
     }
 }
