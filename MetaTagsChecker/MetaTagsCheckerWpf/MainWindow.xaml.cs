@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace MetaTagsCheckerWpf
 {
@@ -23,6 +24,16 @@ namespace MetaTagsCheckerWpf
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "CSV files(*.csv)|*.csv";
+            if (ofd.ShowDialog() == true)
+            {
+                MessageBox.Show(ofd.FileName, "Loaded");
+            }
         }
     }
 }
