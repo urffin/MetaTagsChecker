@@ -53,6 +53,12 @@
     <Compile Include="TestCSV.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MetaTagsCheckerLib\MetaTagsCheckerLib.csproj">
+      <Project>{889ea981-d303-429e-b096-9e602872f55e}</Project>
+      <Name>MetaTagsCheckerLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

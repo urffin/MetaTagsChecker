@@ -12,44 +12,82 @@ namespace MetaTagsCheckerLib
         public bool HasHeader { get; private set; }
         public char Separator { get; private set; }
 
+        public char Quote { get; private set; }
         private List<string> header { get; set; }
 
-        public CSV(char separator = ';', bool hasHeader = false)
+
+
+        public CSV(char separator = ';', bool hasHeader = false, char quote = '"')
         {
             HasHeader = hasHeader;
             Separator = separator;
+            Quote = quote;
         }
-        public async Task<IEnumerable<string[]>> Load(Stream stream)
+        public IEnumerable<IEnumerable<string>> Load(Stream stream)
         {
             using (var reader = new StreamReader(stream))
             {
-                return await Load(reader);
+                return Load(reader);
             }
         }
-        public async Task<IEnumerable<string[]>> Load(TextReader reader)
+        public IEnumerable<IEnumerable<string>> Load(TextReader reader)
         {
             string line;
             if (HasHeader)
             {
-                header = await GetHeader(reader);
+                header = GetHeader(reader);
             }
-            while ((line = await reader.ReadLineAsync()) != null)
+            while ((line = reader.ReadLine()) != null)
             {
-
+                yield return GetColumns(line);
             }
         }
 
-        private async Task<List<string>> GetHeader(TextReader reader)
+        private List<string> GetHeader(TextReader reader)
         {
-            var line = await reader.ReadLineAsync();
-            return GetColumns(line).ToList();
+            var line = reader.ReadLine();
+            if (!string.IsNullOrEmpty(line))
+                return GetColumns(line).ToList();
 
+            return new List<string>();
 
         }
 
         private IEnumerable<string> GetColumns(string line)
         {
-            throw new NotImplementedException();
+            StringBuilder sb = new StringBuilder();
+            int i = 0;
+            while (i < line.Length)
+            {
+                if (line[i] == Quote)
+                    yield return GetQuotedColumn(line, ref i);
+                else
+                    yield return GetUnQuotedColumn(line, ref i);
+            }
+        }
+
+        private string GetUnQuotedColumn(string line, ref int i)
+        {
+            StringBuilder sb = new StringBuilder();
+            for (; i < line.Length && line[i] != Separator; i++)
+            {
+                sb.Append(line[i]);
+            }
+            i += 1;//drop separator
+            return sb.ToString();
+        }
+
+        private string GetQuotedColumn(string line, ref int i)
+        {
+            StringBuilder sb = new StringBuilder();
+            for (i = i + 1; i < line.Length; i++)
+            {
+                if (line[i] == Quote && (i == line.Length - 1 || line[i + 1] == Separator)) break;
+                    sb.Append(line[i]);
+            }
+            i += 1;//drop quote
+            i += 1;//drop separator
+            return sb.ToString();
         }
     }
 }
