@@ -72,7 +72,7 @@ namespace MetaTagsCheckerTest
                 var columns = rows[0].ToList();
                 Assert.AreEqual(3, columns.Count, "Columns count wrong");
                 Assert.AreEqual("a", columns[0], "Wrong value in columns: 0");
-                Assert.AreEqual("\"\"as\"\"a", columns[1], "Wrong reading quoted value in column: 1");
+                Assert.AreEqual("\"as\"a", columns[1], "Wrong reading quoted value in column: 1");
                 Assert.AreEqual("c", columns[2], "Wrong value in columns: 2");
 
             }

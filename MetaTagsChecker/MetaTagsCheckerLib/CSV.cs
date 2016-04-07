@@ -83,7 +83,12 @@ namespace MetaTagsCheckerLib
             for (i = i + 1; i < line.Length; i++)
             {
                 if (line[i] == Quote && (i == line.Length - 1 || line[i + 1] == Separator)) break;
-                    sb.Append(line[i]);
+
+                if (line[i] == Quote && line[i + 1] == Quote)
+                {
+                    i += 1;
+                }
+                sb.Append(line[i]);
             }
             i += 1;//drop quote
             i += 1;//drop separator
